@@ -152,6 +152,7 @@ export class Config extends EventEmitter {
     process.env.CONNECTION_TIMEOUT ??
     '30000'
   );
+  protected disconnectTimeout = +(process.env.DISCONNECT_TIMEOUT ?? '0');
   protected static = process.env.STATIC ?? path.join(__dirname, '..', 'static');
   protected debuggerDir = path.join(this.static, 'debugger');
   protected retries = +(process.env.RETRIES ?? '5');
@@ -235,6 +236,17 @@ export class Config extends EventEmitter {
   }
   public getTimeout(): number {
     return this.timeout;
+  }
+
+  /**
+   * Time in ms to wait after all clients disconnect before closing
+   * the browser session. Set to 0 to disable (default).
+   * Use with TIMEOUT=0 for long-running sessions that clean up
+   * after disconnect.
+   * @returns number
+   */
+  public getDisconnectTimeout(): number {
+    return this.disconnectTimeout;
   }
   public getStatic(): string {
     return this.static;

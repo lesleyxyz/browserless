@@ -339,6 +339,33 @@ export class BrowserManager {
     }
 
     if (!keepOpen) {
+      const disconnectTimeout = this.config.getDisconnectTimeout();
+
+      if (disconnectTimeout > 0 && !force && connected === 0) {
+        this.log.debug(
+          `Setting disconnect timeout of ${disconnectTimeout.toLocaleString()}ms for "${session.id}"`,
+        );
+        this.timers.set(
+          session.id,
+          global.setTimeout(() => {
+            const session = this.browsers.get(browser);
+            if (session) {
+              if (session.numbConnected > 0) {
+                this.log.debug(
+                  `Session "${session.id}" has reconnected, skipping cleanup`,
+                );
+                return;
+              }
+              this.log.debug(
+                `Disconnect timeout reached for "${session.id}", closing`,
+              );
+              this.close(browser, session, true);
+            }
+          }, disconnectTimeout),
+        );
+        return;
+      }
+
       this.log.debug(`Closing browser session`);
       cleanupACtions.push(() => browser.close());
 
@@ -477,6 +504,14 @@ export class BrowserManager {
 
       if (found) {
         const [browser, session] = found;
+        const priorTimer = this.timers.get(session.id);
+        if (priorTimer) {
+          this.log.debug(
+            `Clearing disconnect timer for "${session.id}" on reconnect`,
+          );
+          global.clearTimeout(priorTimer);
+          this.timers.delete(session.id);
+        }
         ++session.numbConnected;
         this.log.debug(`Located browser with ID ${id}`);
         return browser;
