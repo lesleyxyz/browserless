@@ -1,0 +1,24 @@
+services:
+  browserless:
+    #image: ghcr.io/browserless/chromium:latest
+    build:
+      context: .
+      dockerfile: ./docker/chromium/Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      KEEP_ALIVE: true
+      DEFAULT_STEALTH: true
+      MAX_CONCURRENT_SESSIONS: 10
+      TIMEOUT: 0
+      DISCONNECT_TIMEOUT: 60000
+      MAX_QUEUE_LENGTH: 20
+      PREBOOT_CHROME: true
+      DEMO_MODE: false
+      HOST: 0.0.0.0
+      ENABLE_DEBUGGER: true
+      TOKEN: abc
+      PORT: 3000
+      WORKSPACE_DELETE_EXPIRED: true
+
+    restart: unless-stopped

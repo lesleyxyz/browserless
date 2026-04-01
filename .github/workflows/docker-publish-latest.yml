@@ -1,9 +1,9 @@
 name: Publish Latest Docker Images to GitHub Container Registry
 
-on: [workflow_dispatch]
-#  push:
-#    branches:
-#      - main
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   push_to_registry:
@@ -27,19 +27,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Publish the latest Base image
-#        uses: docker/build-push-action@v7
-#        with:
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/base/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/base:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
-#
+      - name: Publish the latest Base image
+        uses: docker/build-push-action@v7
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/base/Dockerfile
+          tags: |
+            ghcr.io/browserless/base:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+            linux/arm64
+
       - name: Publish the latest Chromium image
         uses: docker/build-push-action@v7
         with:
@@ -54,110 +54,110 @@ jobs:
           platforms: |
             linux/amd64
             linux/arm64
-#
-#      - name: Publish the latest Chrome image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/chrome/Dockerfile
-#          tags: |
-#            ghcr.io/lesleyxyz/chrome:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#
-#      - name: Publish the latest Edge image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/edge/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/edge:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#
-#      - name: Publish the latest FireFox image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/firefox/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/firefox:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
-#
-#      - name: Publish the latest Webkit image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#            INSTALL_WEBKIT_VERSIONS=false
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/webkit/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/webkit:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
-#
-#      - name: Publish the latest Webkit Heavy image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#            INSTALL_WEBKIT_VERSIONS=true
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/webkit/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/webkit-heavy:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
-#
-#      - name: Publish the latest Multi image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#            INSTALL_WEBKIT_VERSIONS=false
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/multi/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/multi:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
-#
-#      - name: Publish the latest Multi Heavy image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#            INSTALL_WEBKIT_VERSIONS=true
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/multi/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/multi-heavy:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
+
+      - name: Publish the latest Chrome image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/chrome/Dockerfile
+          tags: |
+            ghcr.io/lesleyxyz/chrome:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+
+      - name: Publish the latest Edge image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/edge/Dockerfile
+          tags: |
+            ghcr.io/browserless/edge:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+
+      - name: Publish the latest FireFox image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/firefox/Dockerfile
+          tags: |
+            ghcr.io/browserless/firefox:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+            linux/arm64
+
+      - name: Publish the latest Webkit image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+            INSTALL_WEBKIT_VERSIONS=false
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/webkit/Dockerfile
+          tags: |
+            ghcr.io/browserless/webkit:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+            linux/arm64
+
+      - name: Publish the latest Webkit Heavy image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+            INSTALL_WEBKIT_VERSIONS=true
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/webkit/Dockerfile
+          tags: |
+            ghcr.io/browserless/webkit-heavy:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+            linux/arm64
+
+      - name: Publish the latest Multi image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+            INSTALL_WEBKIT_VERSIONS=false
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/multi/Dockerfile
+          tags: |
+            ghcr.io/browserless/multi:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+            linux/arm64
+
+      - name: Publish the latest Multi Heavy image
+        uses: docker/build-push-action@v7
+        with:
+          build-args: |
+            VERSION=latest
+            INSTALL_WEBKIT_VERSIONS=true
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/multi/Dockerfile
+          tags: |
+            ghcr.io/browserless/multi-heavy:latest
+          context: .
+          push: true
+          platforms: |
+            linux/amd64
+            linux/arm64
