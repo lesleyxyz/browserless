@@ -63,7 +63,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           file: ./docker/chrome/Dockerfile
           tags: |
-            ghcr.io/browserless/chrome:latest
+            ghcr.io/lesleyxyz/chrome:latest
           context: .
           push: true
           platforms: |
