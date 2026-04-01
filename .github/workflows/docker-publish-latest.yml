@@ -40,35 +40,35 @@ jobs:
 #            linux/amd64
 #            linux/arm64
 #
-#      - name: Publish the latest Chromium image
-#        uses: docker/build-push-action@v7
-#        with:
-#          build-args: |
-#            VERSION=latest
-#          builder: ${{ steps.buildx.outputs.name }}
-#          file: ./docker/chromium/Dockerfile
-#          tags: |
-#            ghcr.io/browserless/chromium:latest
-#          context: .
-#          push: true
-#          platforms: |
-#            linux/amd64
-#            linux/arm64
-
-      - name: Publish the latest Chrome image
+      - name: Publish the latest Chromium image
         uses: docker/build-push-action@v7
         with:
           build-args: |
             VERSION=latest
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./docker/chrome/Dockerfile
+          file: ./docker/chromium/Dockerfile
           tags: |
-            ghcr.io/lesleyxyz/chrome:latest
+            ghcr.io/browserless/chromium:latest
           context: .
           push: true
           platforms: |
             linux/amd64
-
+            linux/arm64
+#
+#      - name: Publish the latest Chrome image
+#        uses: docker/build-push-action@v7
+#        with:
+#          build-args: |
+#            VERSION=latest
+#          builder: ${{ steps.buildx.outputs.name }}
+#          file: ./docker/chrome/Dockerfile
+#          tags: |
+#            ghcr.io/lesleyxyz/chrome:latest
+#          context: .
+#          push: true
+#          platforms: |
+#            linux/amd64
+#
 #      - name: Publish the latest Edge image
 #        uses: docker/build-push-action@v7
 #        with:
